@@ -104,7 +104,7 @@ class AccountInvoice(models.Model):
                 'invoice_id': l.invoice_id.id,
                 'id': l.id,
                 'name': l.name,
-                'account': l.account_id.name,
+                'account': l.sudo().account_id.name,
                 'product': l.product_id.name,
                 'price_unit': l.price_unit,
                 'qty': l.quantity,
