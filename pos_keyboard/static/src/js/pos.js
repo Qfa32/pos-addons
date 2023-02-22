@@ -65,6 +65,7 @@ odoo.define('pos_keyboard.pos', function (require) {
                 val: undefined
             };
             this.action_callback = undefined;
+            this.active = false;
         },
 
         save_callback: function(){
@@ -90,6 +91,9 @@ odoo.define('pos_keyboard.pos', function (require) {
         // calling the callback when needed.
         connect: function(){
             var self = this;
+            if (self.active) {
+                return;
+            }
             // --- additional keyboard ---//
             var KC_PLU = 107;      // KeyCode: + or - (Keypad '+')
             var KC_QTY = 111;      // KeyCode: Quantity (Keypad '/')
@@ -176,11 +180,13 @@ odoo.define('pos_keyboard.pos', function (require) {
                     }, 50);
                 }
             });
+            self.active = true;
         },
 
         // stops catching keyboard events 
         disconnect: function(){
             $('body').off('keyup', '');
+            self.active = false;
         }
     });
     
